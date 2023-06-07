@@ -3,11 +3,18 @@ package com.iftm.ecommerce.models;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.*;
+@Entity
+@Table(name = "category")
 public class Category {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCategory;
+    @Column(name = "name_category",nullable = false)
     private String nameCategory;
+    @Column(nullable = false)
     private String description;
-
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Product> products;
     public Category() {
     }
@@ -51,7 +58,7 @@ public class Category {
         return description;
     }
 
-    public void setDescription(String descdescriptionition) {
+    public void setDescription(String description) {
         this.description = description;
     }
 }

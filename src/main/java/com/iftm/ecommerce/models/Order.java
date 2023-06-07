@@ -4,9 +4,17 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
+
+import jakarta.persistence.*;
+@Entity
+@Table(name = "request")
 public class Order {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idOrder;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Product> products;
+    @Column(nullable = false)
     private LocalDateTime dateOrder;
 
     public Order(Long idOrder, List<Product> products, LocalDateTime dateOrder) {

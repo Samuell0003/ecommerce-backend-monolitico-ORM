@@ -2,9 +2,17 @@ package com.iftm.ecommerce.models;
 
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.*;
+@Entity
+@Table(name = "images")
 public class Image {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_image;
+    @Column(nullable = false, length = 100)
     private String description;
+    @Column(nullable = false)
     private String url;
 
     public Image(Long id_image, String description, String url) {

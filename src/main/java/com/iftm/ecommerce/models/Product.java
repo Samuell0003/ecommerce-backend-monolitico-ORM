@@ -3,15 +3,32 @@ package com.iftm.ecommerce.models;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
+import jakarta.persistence.*;
+@Entity
+@Table(name = "products")
 public class Product {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long idProduct;
+    @Column(name = "description", nullable = false, length = 120)
     private String description;
+    @Column(name = "amount", nullable = false)
     private int amount;
+    @Column(name = "value", nullable = false)
     private  double value;
+    @OneToOne
     private Image image;
+    @ManyToOne
+    @JsonIgnore
     private Category category;
-
+    
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "product_order",
+              joinColumns = {@JoinColumn(name = "product_id")},
+              inverseJoinColumns = {@JoinColumn(name = "order_id")})
     private List<Order> request;
 
     public Product(Long idProduct, String description, int amount, double value, Image image, Category category) {
