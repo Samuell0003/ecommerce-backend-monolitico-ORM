@@ -6,7 +6,7 @@ import java.util.Objects;
 public class Product {
 
     private Long idProduct;
-    private String descrition;
+    private String description;
     private int amount;
     private  double value;
     private Image image;
@@ -14,9 +14,9 @@ public class Product {
 
     private List<Order> request;
 
-    public Product(Long idProduct, String descrition, int amount, double value, Image image, Category category) {
+    public Product(Long idProduct, String description, int amount, double value, Image image, Category category) {
         this.idProduct = idProduct;
-        this.descrition = descrition;
+        this.description = description;
         this.amount = amount;
         this.value = value;
         this.image = image;
@@ -32,12 +32,12 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return amount == product.amount && Double.compare(product.value, value) == 0 && Objects.equals(idProduct, product.idProduct) && Objects.equals(descrition, product.descrition) && Objects.equals(image, product.image) && Objects.equals(category, product.category) && Objects.equals(request, product.request);
+        return amount == product.amount && Double.compare(product.value, value) == 0 && Objects.equals(idProduct, product.idProduct) && Objects.equals(description, product.description) && Objects.equals(image, product.image) && Objects.equals(category, product.category) && Objects.equals(request, product.request);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idProduct, descrition, amount, value, image, category, request);
+        return Objects.hash(idProduct, description, amount, value, image, category, request);
     }
 
     public Long getIdProduct() {
@@ -48,12 +48,12 @@ public class Product {
         this.idProduct = idProduct;
     }
 
-    public String getDescrition() {
-        return descrition;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescrition(String descrition) {
-        this.descrition = descrition;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getAmount() {

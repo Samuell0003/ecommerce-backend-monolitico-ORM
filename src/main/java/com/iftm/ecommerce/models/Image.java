@@ -4,12 +4,12 @@ import java.util.Objects;
 
 public class Image {
     private Long id_image;
-    private String descrition;
+    private String description;
     private String url;
 
-    public Image(Long id_image, String descrition, String url) {
+    public Image(Long id_image, String description, String url) {
         this.id_image = id_image;
-        this.descrition = descrition;
+        this.description = description;
         this.url = url;
     }
 
@@ -22,12 +22,12 @@ public class Image {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Image image = (Image) o;
-        return Objects.equals(id_image, image.id_image) && Objects.equals(descrition, image.descrition) && Objects.equals(url, image.url);
+        return Objects.equals(id_image, image.id_image) && Objects.equals(description, image.description) && Objects.equals(url, image.url);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id_image, descrition, url);
+        return Objects.hash(id_image, description, url);
     }
 
     public Long getId_image() {
@@ -38,12 +38,12 @@ public class Image {
         this.id_image = id_image;
     }
 
-    public String getDescrition() {
-        return descrition;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescrition(String descrition) {
-        this.descrition = descrition;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getUrl() {

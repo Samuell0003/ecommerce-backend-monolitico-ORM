@@ -6,16 +6,16 @@ import java.util.Objects;
 public class Category {
     private Long idCategory;
     private String nameCategory;
-    private String descrition;
+    private String description;
 
     private List<Product> products;
     public Category() {
     }
 
-    public Category(Long idCategory, String nameCategory, String descrition) {
+    public Category(Long idCategory, String nameCategory, String description) {
         this.idCategory = idCategory;
         this.nameCategory = nameCategory;
-        this.descrition = descrition;
+        this.description = description;
     }
 
     @Override
@@ -23,12 +23,12 @@ public class Category {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Category category = (Category) o;
-        return Objects.equals(idCategory, category.idCategory) && Objects.equals(nameCategory, category.nameCategory) && Objects.equals(descrition, category.descrition);
+        return Objects.equals(idCategory, category.idCategory) && Objects.equals(nameCategory, category.nameCategory) && Objects.equals(description, category.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idCategory, nameCategory, descrition);
+        return Objects.hash(idCategory, nameCategory, description);
     }
 
     public Long getIdCategory() {
@@ -47,11 +47,11 @@ public class Category {
         this.nameCategory = nameCategory;
     }
 
-    public String getDescrition() {
-        return descrition;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescrition(String descrition) {
-        this.descrition = descrition;
+    public void setDescription(String descdescriptionition) {
+        this.description = description;
     }
 }
