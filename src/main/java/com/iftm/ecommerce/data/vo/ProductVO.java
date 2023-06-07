@@ -1,5 +1,7 @@
 package com.iftm.ecommerce.data.vo;
 
-public class ProductVO {
+import java.io.Serializable;
+
+public class ProductVO implements Serializable {
     
 }
