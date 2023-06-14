@@ -1,5 +1,7 @@
 package com.iftm.ecommerce.data.vo;
 
+import org.springframework.hateoas.Link;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -60,5 +62,8 @@ public class ImageVO implements Serializable {
                 ", description='" + description + '\'' +
                 ", url='" + url + '\'' +
                 '}';
+    }
+
+    public void add(Link withSelfRel) {
     }
 }
