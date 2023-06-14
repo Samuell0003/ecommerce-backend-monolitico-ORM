@@ -5,17 +5,22 @@ import java.util.Objects;
 
 import jakarta.persistence.*;
 @Entity
-@Table(name = "category")
+@Table(name = "tb_category")
 public class Category {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCategory;
+
     @Column(name = "name_category",nullable = false)
     private String nameCategory;
+
     @Column(nullable = false)
     private String description;
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "category", targetEntity = Product.class)
     private List<Product> products;
+
     public Category() {
     }
 

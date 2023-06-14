@@ -1,35 +1,42 @@
 package com.iftm.ecommerce.models;
 
 import java.util.List;
-import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 import jakarta.persistence.*;
 @Entity
-@Table(name = "products")
+@Table(name = "tb_product")
 public class Product {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idProduct;
+
     @Column(name = "description", nullable = false, length = 120)
     private String description;
+
     @Column(name = "amount", nullable = false)
     private int amount;
+
     @Column(name = "value", nullable = false)
     private  double value;
+
     @OneToOne
+    @JoinColumn(name = "image_id", referencedColumnName = "idImage")
     private Image image;
+
     @ManyToOne
-    @JsonIgnore
+    @JoinColumn(name = "category_id")
     private Category category;
     
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "product_order",
-              joinColumns = {@JoinColumn(name = "product_id")},
-              inverseJoinColumns = {@JoinColumn(name = "order_id")})
-    private List<Order> request;
+    @ManyToMany
+    @JoinTable(
+        name = "product_order",
+        joinColumns = @JoinColumn(name = "product_id"),
+        inverseJoinColumns = @JoinColumn(name = "order_id")
+    )
+    private List<Order> orders;
 
     public Product(Long idProduct, String description, int amount, double value, Image image, Category category) {
         this.idProduct = idProduct;
@@ -42,19 +49,6 @@ public class Product {
 
     public Product() {
 
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Product product = (Product) o;
-        return amount == product.amount && Double.compare(product.value, value) == 0 && Objects.equals(idProduct, product.idProduct) && Objects.equals(description, product.description) && Objects.equals(image, product.image) && Objects.equals(category, product.category) && Objects.equals(request, product.request);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(idProduct, description, amount, value, image, category, request);
     }
 
     public Long getIdProduct() {
@@ -89,14 +83,6 @@ public class Product {
         this.value = value;
     }
 
-    public Image getImage() {
-        return image;
-    }
-
-    public void setImage(Image image) {
-        this.image = image;
-    }
-
     public Category getCategory() {
         return category;
     }
@@ -106,10 +92,10 @@ public class Product {
     }
 
     public List<Order> getRequest() {
-        return request;
+        return orders;
     }
 
-    public void setRequest(List<Order> request) {
-        this.request = request;
+    public void setRequest(List<Order> orders) {
+        this.orders = orders;
     }
 }
