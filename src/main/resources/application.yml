@@ -2,8 +2,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://aws.connect.psdb.cloud/ecommerce?useTimezone=true&serverTimezone=UTC&createDatabaseIfNotExist=true
-    username: 6tjs0s0nmnyi3olfkv2w
-    password: pscale_pw_lym41djrpiUsBh7XIbBGpKkhp6e4I7Cc347BLuWWZNm
+    username: sauuy4buwe88fr50cpo8
+    password: 
   jpa:
     hibernate:
       ddl-auto: update
