@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/ecommerce?useTimezone=true&serverTimezone=UTC
-    username: root
-    password: 12345678
+    url: jdbc:mysql://aws.connect.psdb.cloud/ecommerce?useTimezone=true&serverTimezone=UTC&createDatabaseIfNotExist=true
+    username: 6tjs0s0nmnyi3olfkv2w
+    password: pscale_pw_lym41djrpiUsBh7XIbBGpKkhp6e4I7Cc347BLuWWZNm
   jpa:
     hibernate:
       ddl-auto: update
@@ -14,6 +14,6 @@ spring:
     show-sql: true
 springdoc:
   paths-to-match:
-    - /api/**/v1/**
+    - /api/*/v1/*
   swagger-ui:
     use-root-path: true

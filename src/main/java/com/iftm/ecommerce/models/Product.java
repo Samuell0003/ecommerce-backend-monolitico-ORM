@@ -2,8 +2,6 @@ package com.iftm.ecommerce.models;
 
 import java.util.List;
 
-
-
 import jakarta.persistence.*;
 @Entity
 @Table(name = "tb_product")
