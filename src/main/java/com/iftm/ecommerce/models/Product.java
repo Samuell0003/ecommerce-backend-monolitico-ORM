@@ -21,11 +21,11 @@ public class Product {
     private  double value;
 
     @OneToOne
-    @JoinColumn(name = "image_id", referencedColumnName = "idImage")
+    @JoinColumn(name = "image_id", referencedColumnName = "idImage", nullable = false)
     private Image image;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id", nullable = false)
     private Category category;
     
     @ManyToMany
@@ -36,13 +36,15 @@ public class Product {
     )
     private List<Order> orders;
 
-    public Product(Long idProduct, String description, int amount, double value, Image image, Category category) {
+    public Product(Long idProduct, String description, int amount, double value, Image image, Category category,
+            List<Order> orders) {
         this.idProduct = idProduct;
         this.description = description;
         this.amount = amount;
         this.value = value;
         this.image = image;
         this.category = category;
+        this.orders = orders;
     }
 
     public Product() {
@@ -81,6 +83,14 @@ public class Product {
         this.value = value;
     }
 
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
     public Category getCategory() {
         return category;
     }
@@ -89,11 +99,11 @@ public class Product {
         this.category = category;
     }
 
-    public List<Order> getRequest() {
+    public List<Order> getOrders() {
         return orders;
     }
 
-    public void setRequest(List<Order> orders) {
+    public void setOrders(List<Order> orders) {
         this.orders = orders;
-    }
+    }  
 }
