@@ -1,9 +1,11 @@
 package com.iftm.ecommerce.models;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 @Entity
@@ -12,21 +14,37 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idOrder;
+    @Column
+    private String description;
 
-    @ManyToMany(mappedBy = "orders")
-    private List<Product> products;
+    @ManyToMany(mappedBy = "orders", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Product> products = new ArrayList<>();
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
+    @Column
     private LocalDateTime dateOrder;
+    @Column
+    private Double fullValue = 0D;
 
-    public Order(Long idOrder, List<Product> products, LocalDateTime dateOrder) {
-        this.idOrder = idOrder;
+
+    public Order(String description, List<Product> products,
+            Double fullValue) {
+        this.description = description;
         this.products = products;
-        this.dateOrder = dateOrder;
+        this.dateOrder = LocalDateTime.now();
+        this.fullValue = fullValue;
     }
 
     public Order() {}
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -41,13 +59,12 @@ public class Order {
         return Objects.hash(idOrder, products, dateOrder);
     }
 
-    public double fullValue() {
-        double valueFull = 0;
+    public Double getfullValue() {
         for (Product product: products) {
-            valueFull += product.getValue();
+            this.fullValue += product.getValue();
         }
 
-        return valueFull;
+        return fullValue;
     }
 
     public Long getIdOrder() {
