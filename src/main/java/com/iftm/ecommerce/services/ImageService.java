@@ -36,18 +36,18 @@ public class ImageService {
     }
 
     public ImageVO findById(Long id) throws Exception {
-        var userDb = imageRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records for this ID."));
-        var user = DozerMapper.parseObject(userDb, ImageVO.class);
-        user.add(linkTo(methodOn(ImageController.class).findById(id)).withSelfRel());
+        var imageDb = imageRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records for this ID."));
+        var image = DozerMapper.parseObject(imageDb, ImageVO.class);
+        image.add(linkTo(methodOn(ImageController.class).findById(id)).withSelfRel());
         //user.add(linkTo(methodOn(UserController.class).update(user)).withSelfRel());
         //user.add(linkTo(methodOn(UserController.class).delete(id)).withSelfRel());
-        return user;
+        return image;
     }
 
     public List<ImageVO> findByGroupName(String groupName) {
         List<Image> images = imageRepository.findUsersByGroupName(groupName);
-        var usersVO = DozerMapper.parseListObject(images, ImageVO.class);
-        usersVO.stream().forEach(images -> {
+        var imageVO = DozerMapper.parseListObject(images, ImageVO.class);
+        imageVO.stream().forEach(images -> {
             try {
                 images.add(linkTo(methodOn(ImageController.class).findById(images.getId_image()))
                         .withSelfRel()
@@ -56,7 +56,7 @@ public class ImageService {
                 throw new RuntimeException(e);
             }
         });
-        return usersVO;
+        return imageVO;
     }
 
     public ImageVO save(ImageVO imageVO) throws Exception{
