@@ -1,44 +1,31 @@
-package com.iftm.ecommerce.models;
+package com.iftm.ecommerce.data.vo;
 
+import java.io.Serializable;
 import java.util.List;
 
-import jakarta.persistence.*;
-@Entity
-@Table(name = "tb_product")
-public class Product {
+import org.springframework.hateoas.RepresentationModel;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+import com.iftm.ecommerce.models.Category;
+import com.iftm.ecommerce.models.Image;
+import com.iftm.ecommerce.models.Order;
+
+public class ProductVO extends RepresentationModel<ProductVO> implements Serializable {
     private Long idProduct;
 
-    @Column(name = "description", nullable = false, length = 120)
     private String description;
 
-    @Column(name = "amount", nullable = false)
     private int amount;
 
-    @Column(name = "value", nullable = false)
     private  double value;
 
-    @OneToOne
-    @JoinColumn(name = "image_id", referencedColumnName = "idImage", nullable = false)
     private Image image;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
     private Category category;
     
-    @ManyToMany
-    @JoinTable(
-        name = "product_order",
-        joinColumns = @JoinColumn(name = "product_id"),
-        inverseJoinColumns = @JoinColumn(name = "order_id")
-    )
     private List<Order> orders;
 
-    public Product(Long idProduct, String description, int amount, double value, Image image, Category category,
+    public ProductVO(String description, int amount, double value, Image image, Category category,
             List<Order> orders) {
-        this.idProduct = idProduct;
         this.description = description;
         this.amount = amount;
         this.value = value;
@@ -47,7 +34,7 @@ public class Product {
         this.orders = orders;
     }
 
-    public Product() {
+    public ProductVO() {
 
     }
 
@@ -105,5 +92,6 @@ public class Product {
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
-    }  
+    }
+
 }

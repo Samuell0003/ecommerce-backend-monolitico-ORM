@@ -33,4 +33,11 @@ build/
 .vscode/
 
 
-.DS_Store
+
+
+.env*
+.flaskenv*
+!.env.project
+!.env.vault
+
+.DS_Store*

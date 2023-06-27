@@ -7,13 +7,16 @@ import java.util.Objects;
 
 import jakarta.persistence.*;
 @Entity
-@Table(name = "request")
+@Table(name = "tb_order")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idOrder;
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+
+    @ManyToMany(mappedBy = "orders")
     private List<Product> products;
+
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     private LocalDateTime dateOrder;
 

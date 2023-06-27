@@ -1,9 +1,14 @@
 spring:
+  profiles:
+    active: default
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/ecommerce?useTimezone=true&serverTimezone=UTC
-    username: root
-    password: 12345678
+    # url: ${DB_URL}?useTimezone=true&serverTimezone=UTC&createDatabaseIfNotExist=true
+    # username: ${DB_USERNAME}
+    # password: ${DB_PASSWORD}
+    url: ${DB_URL2}
+    username: ${DB_USERNAME2}
+    password: ${DB_PASSWORD2}
   jpa:
     hibernate:
       ddl-auto: update
@@ -14,6 +19,7 @@ spring:
     show-sql: true
 springdoc:
   paths-to-match:
-    - /api/**/v1/**
+    - /api/v1/*/*
+    - /api/v1/*
   swagger-ui:
     use-root-path: true
