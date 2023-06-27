@@ -4,6 +4,8 @@ import com.iftm.ecommerce.controllers.ImageController;
 import com.iftm.ecommerce.controllers.exceptions.RequiredObjectIsNullException;
 import com.iftm.ecommerce.controllers.exceptions.ResourceNotFoundException;
 import com.iftm.ecommerce.data.vo.ImageVO;
+import com.iftm.ecommerce.exceptions.RequeridObjectIsNullException;
+import com.iftm.ecommerce.exceptions.ResourceNotFoundException;
 import com.iftm.ecommerce.mapper.DozerMapper;
 import com.iftm.ecommerce.models.Image;
 import com.iftm.ecommerce.repositories.ImageRepository;
@@ -70,7 +72,7 @@ public class ImageService {
     }
 
     public ImageVO update(ImageVO imageVO) throws Exception {
-        if(imageVO == null) throw new RequiredObjectIsNullException();
+        if(imageVO == null) throw new RequeridObjectIsNullException();
 
         var dbImage = imageRepository.findById(ImageVO.getId_image()).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID."));
         Image image = DozerMapper.parseObject(ImageVO, Image.class);
