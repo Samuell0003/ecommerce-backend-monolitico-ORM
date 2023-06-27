@@ -45,11 +45,11 @@ public class ImageService {
     }
 
     public List<ImageVO> findByGroupName(String groupName) {
-        List<Image> images = imageRepository.findUsersByGroupName(groupName);
+        List<Image> images = imageRepository.findImagesByGroupName(groupName);
         var imageVO = DozerMapper.parseListObject(images, ImageVO.class);
-        imageVO.stream().forEach(images -> {
+        imageVO.stream().forEach(image -> {
             try {
-                images.add(linkTo(methodOn(ImageController.class).findById(images.getId_image()))
+                image.add(linkTo(methodOn(ImageController.class).findById(image.getId_image()))
                         .withSelfRel()
                 );
             } catch (Exception e) {
