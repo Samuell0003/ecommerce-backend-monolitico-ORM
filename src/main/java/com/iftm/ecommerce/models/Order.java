@@ -18,8 +18,7 @@ public class Order {
     private String description;
 
     @ManyToMany(mappedBy = "orders", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<Product> products = new ArrayList<>();
+    private List<Product> products;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column
@@ -33,7 +32,7 @@ public class Order {
         this.description = description;
         this.products = products;
         this.dateOrder = LocalDateTime.now();
-        this.fullValue = fullValue;
+        this.fullValue = getfullValue();
     }
 
     public Order() {}

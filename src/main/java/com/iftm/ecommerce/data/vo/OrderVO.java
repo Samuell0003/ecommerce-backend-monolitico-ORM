@@ -16,7 +16,6 @@ public class OrderVO extends RepresentationModel<OrderVO> implements Serializabl
     private List<Product> products = new ArrayList<>();
     private LocalDateTime dateOrder;
     private Double fullValue = 0D;
-
     
 
     public OrderVO(String description, List<Product> products,
@@ -67,8 +66,4 @@ public class OrderVO extends RepresentationModel<OrderVO> implements Serializabl
     public void setFullValue(Double fullValue) {
         this.fullValue = fullValue;
     }
-
-    
-
-    
 }

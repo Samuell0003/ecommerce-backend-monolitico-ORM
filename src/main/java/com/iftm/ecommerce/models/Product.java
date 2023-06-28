@@ -18,7 +18,7 @@ public class Product {
     private int amount;
 
     @Column(name = "value", nullable = false)
-    private  double value;
+    private double value;
 
     @OneToOne
     @JoinColumn(name = "image_id", referencedColumnName = "idImage", nullable = false)

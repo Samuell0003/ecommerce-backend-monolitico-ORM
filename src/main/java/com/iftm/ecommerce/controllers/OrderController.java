@@ -26,7 +26,7 @@ public class OrderController {
 
     @PostMapping
     public OrderVO save(@RequestBody OrderVO order) throws Exception {
-        return save(order);
+        return service.save(order);
     }
 
     @GetMapping(value = "/{id}")
