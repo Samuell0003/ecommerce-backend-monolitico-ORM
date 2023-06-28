@@ -1,14 +1,11 @@
 package com.iftm.ecommerce.services;
 
 import com.iftm.ecommerce.controllers.ImageController;
-import com.iftm.ecommerce.controllers.ProductController;
 import com.iftm.ecommerce.data.vo.ImageVO;
-import com.iftm.ecommerce.data.vo.ProductVO;
 import com.iftm.ecommerce.exceptions.RequeridObjectIsNullException;
 import com.iftm.ecommerce.exceptions.ResourceNotFoundException;
 import com.iftm.ecommerce.mapper.DozerMapper;
 import com.iftm.ecommerce.models.Image;
-import com.iftm.ecommerce.models.Product;
 import com.iftm.ecommerce.repositories.ImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +25,7 @@ public class ImageService {
         Image image = DozerMapper.parseObject(imageVO, Image.class);
         var userDb = imageRepository.save(image);
         imageVO = DozerMapper.parseObject(userDb, ImageVO.class);
-        imageVO.add(linkTo(methodOn(ProductController.class).findById(imageVO.getId_image())).withSelfRel());
+        imageVO.add(linkTo(methodOn(ImageController.class).findById(imageVO.getId_image())).withSelfRel());
 
         return imageVO;
     }
@@ -39,7 +36,7 @@ public class ImageService {
 
         users.stream().forEach(e -> {
             try {
-                e.add(linkTo(methodOn(ProductController.class).findById(e.getId_image())).withSelfRel());
+                e.add(linkTo(methodOn(ImageController.class).findById(e.getId_image())).withSelfRel());
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
@@ -53,7 +50,7 @@ public class ImageService {
         imageRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("id " + id + " informado nao foi encontrado na base de dados"));
 
         var user = DozerMapper.parseObject(imageRepository.findById(id).get(), ImageVO.class);
-        user.add(linkTo(methodOn(ProductController.class).findById(id)).withSelfRel());
+        user.add(linkTo(methodOn(ImageController.class).findById(id)).withSelfRel());
 
         return user;
     }
