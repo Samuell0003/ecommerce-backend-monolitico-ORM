@@ -1,8 +1,6 @@
 package com.iftm.ecommerce.services;
 
 import com.iftm.ecommerce.controllers.ImageController;
-import com.iftm.ecommerce.controllers.exceptions.RequiredObjectIsNullException;
-import com.iftm.ecommerce.controllers.exceptions.ResourceNotFoundException;
 import com.iftm.ecommerce.data.vo.ImageVO;
 import com.iftm.ecommerce.exceptions.RequeridObjectIsNullException;
 import com.iftm.ecommerce.exceptions.ResourceNotFoundException;
@@ -21,7 +19,6 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class ImageService {
     @Autowired
     private ImageRepository imageRepository;
-
     public List<ImageVO> findAll() {
         var imageDbList = imageRepository.findAll();
         var images = DozerMapper.parseListObject(imageDbList, ImageVO.class);
@@ -62,7 +59,7 @@ public class ImageService {
     }
 
     public ImageVO save(ImageVO imageVO) throws Exception{
-        if(imageVO == null) throw new RequiredObjectIsNullException();
+        if(imageVO == null) throw new RequeridObjectIsNullException();
 
         Image image = DozerMapper.parseObject(imageVO, Image.class);
         var imageDb = imageRepository.save(image);
