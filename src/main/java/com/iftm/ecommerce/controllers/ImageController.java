@@ -61,31 +61,6 @@ public class ImageController {
     public ImageVO findById(@PathVariable("id") Long id) throws Exception {
         return imageService.findById(id);
     }
-
-    // USERS BY GROUP NAME - HTTP GET
-    // Endpoint: http://localhost:8080/api/v1/user/group/NOME_DO_GRUPO
-
-    @GetMapping(value = "group/{name}", produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
-    @Operation(
-            summary = "Find a user by Group.", description = "Find a user by Group.", tags = {"User"},
-            responses = {
-                    @ApiResponse(description = "Success", responseCode = "200",
-                            content = {
-                                    @Content(mediaType = MediaType.APPLICATION_JSON,
-                                            schema = @Schema(implementation = ImageVO.class)
-                                    )
-                            }
-                    ),
-                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
-                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
-                    @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
-                    @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content)
-            }
-    )
-    public List<ImageVO> findUsersByGroupName(@PathVariable("name") String groupName) {
-        return imageService.findByGroupName(groupName);
-    }
-
     // CREATE - HTTP POST
     // Endpoint: http://localhost:8080/api/v1/user
     @PostMapping(consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML},
@@ -143,8 +118,8 @@ public class ImageController {
                     @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content)
             }
     )
-    public String delete(@PathVariable("id") Long id) {
-        return imageService.delete(id);
+    public void delete(@PathVariable("id") Long id) throws Exception {
+        imageService.deleteById(id);
     }
 
 }
