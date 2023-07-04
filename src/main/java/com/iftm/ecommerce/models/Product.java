@@ -2,6 +2,8 @@ package com.iftm.ecommerce.models;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 @Entity
 @Table(name = "tb_product")
@@ -28,12 +30,8 @@ public class Product {
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
     
-    @ManyToMany
-    @JoinTable(
-        name = "product_order",
-        joinColumns = @JoinColumn(name = "product_id"),
-        inverseJoinColumns = @JoinColumn(name = "order_id")
-    )
+    @ManyToMany(mappedBy = "products", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Order> orders;
 
     public Product(Long idProduct, String description, int amount, double value, Image image, Category category,

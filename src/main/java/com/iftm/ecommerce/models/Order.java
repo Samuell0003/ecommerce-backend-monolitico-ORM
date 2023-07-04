@@ -1,7 +1,6 @@
 package com.iftm.ecommerce.models;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,7 +16,12 @@ public class Order {
     @Column
     private String description;
 
-    @ManyToMany(mappedBy = "orders", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany
+    @JoinTable(
+        name = "product_order",
+        joinColumns = @JoinColumn(name = "product_id"),
+        inverseJoinColumns = @JoinColumn(name = "order_id")
+    )
     private List<Product> products;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -27,15 +31,20 @@ public class Order {
     private Double fullValue = 0D;
 
 
-    public Order(String description, List<Product> products,
-            Double fullValue) {
+    public Order (String description, List<Product> products, LocalDateTime dateOrder) {
         this.description = description;
         this.products = products;
-        this.dateOrder = LocalDateTime.now();
-        this.fullValue = getfullValue();
+        this.dateOrder = dateOrder;
     }
 
     public Order() {}
+
+    @PreUpdate
+    public void fullValueget() {
+        for (Product product: products) {
+            this.fullValue += product.getValue();
+        }
+    }
 
     public String getDescription() {
         return description;
@@ -89,4 +98,10 @@ public class Order {
     public void setDateOrder(LocalDateTime dateOrder) {
         this.dateOrder = dateOrder;
     }
+
+    public Double getFullValue() {
+        return fullValue;
+    }
+
+   
 }

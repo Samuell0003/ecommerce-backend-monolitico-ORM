@@ -28,7 +28,7 @@ public class ImageService {
         Image image = DozerMapper.parseObject(imageVO, Image.class);
         var userDb = imageRepository.save(image);
         imageVO = DozerMapper.parseObject(userDb, ImageVO.class);
-        imageVO.add(linkTo(methodOn(ProductController.class).findById(imageVO.getId_image())).withSelfRel());
+        imageVO.add(linkTo(methodOn(ProductController.class).findById(imageVO.getIdImage())).withSelfRel());
 
         return imageVO;
     }
@@ -39,7 +39,7 @@ public class ImageService {
 
         users.stream().forEach(e -> {
             try {
-                e.add(linkTo(methodOn(ProductController.class).findById(e.getId_image())).withSelfRel());
+                e.add(linkTo(methodOn(ProductController.class).findById(e.getIdImage())).withSelfRel());
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
@@ -61,11 +61,11 @@ public class ImageService {
     public ImageVO update(ImageVO imageVO) throws Exception {
         if (imageVO == null) throw new RequeridObjectIsNullException();
 
-        var dbUser = imageRepository.findById(imageVO.getId_image()).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID."));
+        var dbUser = imageRepository.findById(imageVO.getIdImage()).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID."));
         Image image = DozerMapper.parseObject(imageVO, Image.class);
         image = imageRepository.save(image);
         imageVO = DozerMapper.parseObject(image, ImageVO.class);
-        imageVO.add(linkTo(methodOn(ImageController.class).findById(imageVO.getId_image())).withSelfRel());
+        imageVO.add(linkTo(methodOn(ImageController.class).findById(imageVO.getIdImage())).withSelfRel());
         return imageVO;
     }
 
