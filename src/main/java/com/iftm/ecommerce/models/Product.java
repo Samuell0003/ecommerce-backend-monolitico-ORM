@@ -13,6 +13,9 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idProduct;
 
+    @Column(name = "name", nullable = false)
+    private String name;
+
     @Column(name = "description", nullable = false, length = 120)
     private String description;
 
@@ -34,9 +37,11 @@ public class Product {
     @JsonIgnore
     private List<Order> orders;
 
-    public Product(Long idProduct, String description, int amount, double value, Image image, Category category,
+    
+
+    public Product(String name, String description, int amount, double value, Image image, Category category,
             List<Order> orders) {
-        this.idProduct = idProduct;
+        this.name = name;
         this.description = description;
         this.amount = amount;
         this.value = value;
@@ -103,5 +108,13 @@ public class Product {
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }  
 }

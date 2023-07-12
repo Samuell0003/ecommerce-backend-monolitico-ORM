@@ -13,6 +13,8 @@ import com.iftm.ecommerce.models.Order;
 public class ProductVO extends RepresentationModel<ProductVO> implements Serializable {
     private Long idProduct;
 
+    private String name;
+
     private String description;
 
     private int amount;
@@ -27,7 +29,8 @@ public class ProductVO extends RepresentationModel<ProductVO> implements Seriali
     private List<Order> orders;
 
     public ProductVO(String description, int amount, double value, Image image, Category category,
-            List<Order> orders) {
+            List<Order> orders, String name) {
+        this.name = name;
         this.description = description;
         this.amount = amount;
         this.value = value;
@@ -94,6 +97,14 @@ public class ProductVO extends RepresentationModel<ProductVO> implements Seriali
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
+    }
+
+     public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
 }

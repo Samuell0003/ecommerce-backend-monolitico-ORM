@@ -9,6 +9,7 @@ import com.iftm.ecommerce.controllers.ProductController;
 import com.iftm.ecommerce.data.vo.ImageVO;
 import com.iftm.ecommerce.data.vo.ProductVO;
 import com.iftm.ecommerce.exceptions.RequeridObjectIsNullException;
+import com.iftm.ecommerce.exceptions.RequiredFieldNotInformed;
 import com.iftm.ecommerce.exceptions.ResourceNotFoundException;
 import com.iftm.ecommerce.mapper.DozerMapper;
 import com.iftm.ecommerce.models.Image;
@@ -39,6 +40,13 @@ public class ProductService {
         productVO.add(linkTo(methodOn(ProductController.class).findById(productVO.getIdProduct())).withSelfRel());
 
         return productVO;
+    }
+
+
+    public List<ProductVO> findByName(String name) throws Exception {
+        if (name == null) throw new RequiredFieldNotInformed();
+        
+        return DozerMapper.parseListObject(repository.findByName(name), ProductVO.class);
     }
 
 
