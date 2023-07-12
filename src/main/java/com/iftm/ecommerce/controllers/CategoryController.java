@@ -8,22 +8,32 @@ import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@RestController
+@RequestMapping("api/v1/category")
+@Tag(name = "Category", description = "Endpoint for managing categorys.")
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
-    @GetMapping(produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
+    @GetMapping(produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_XML })
     @Operation(
-            summary = "Find all users.", description = "Find all users.", tags = {"User"},
+            summary = "Find all categorys.", description = "Find all categorys.", tags = {"Category"},
             responses = {
                     @ApiResponse(description = "Sucess.", responseCode = "200",
                             content = {
-                                    @Content(mediaType = MediaType.APPLICATION_JSON,
-                                            array = @ArraySchema(schema = @Schema(implementation = CategoryVO.class)))
+                                        @Content(mediaType = MediaType.APPLICATION_JSON,
+                                                array = @ArraySchema(schema = @Schema(implementation = CategoryVO.class))
+                                        ),
+                                        @Content(mediaType = MediaType.APPLICATION_XML,
+                                                array = @ArraySchema(schema = @Schema(implementation = CategoryVO.class))
+                                        ),
+                                        @Content(mediaType = MediaType.APPLICATION_YML,
+                                                array = @ArraySchema(schema = @Schema(implementation = CategoryVO.class))
+                                        )
                             }
                     ),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -35,16 +45,21 @@ public class CategoryController {
         return categoryService.findAll();
     }
 
-    // READ - HTTP GET
-    // Endpoint: http://localhost:8080/api/v1/user/ID
+  
     @GetMapping(value = "/{id}", produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
     @Operation(
-            summary = "Find a user by ID.", description = "Find a user by ID.", tags = {"User"},
+            summary = "Find a category by ID.", description = "Find a category by ID.", tags = {"Category"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
                             content = {
                                     @Content(mediaType = MediaType.APPLICATION_JSON,
                                             schema = @Schema(implementation = CategoryVO.class)
+                                    ),
+                                    @Content(mediaType = MediaType.APPLICATION_XML,
+                                        schema = @Schema(implementation = CategoryVO.class)
+                                    ),
+                                    @Content(mediaType = MediaType.APPLICATION_YML,
+                                        schema = @Schema(implementation = CategoryVO.class)
                                     )
                             }
                     ),
@@ -57,17 +72,28 @@ public class CategoryController {
     public CategoryVO findById(@PathVariable("id") Long id) throws Exception {
         return categoryService.findById(id);
     }
-    // CREATE - HTTP POST
-    // Endpoint: http://localhost:8080/api/v1/user
+        
+
     @PostMapping(consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML},
             produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
     @Operation(
-            summary = "Create a user.", description = "Create a user.", tags = {"User"},
+            summary = "Create a category.", description = "Create a category.", tags = {"Category"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
-                            content = @Content(
-                                    schema = @Schema(implementation = CategoryVO.class)
-                            )
+                            content = {
+                                @Content(
+                                        mediaType = MediaType.APPLICATION_JSON,
+                                        schema = @Schema(implementation = CategoryVO.class)
+                                ),
+                                @Content(
+                                        mediaType = MediaType.APPLICATION_XML,
+                                        schema = @Schema(implementation = CategoryVO.class)
+                                ),
+                                @Content(
+                                        mediaType = MediaType.APPLICATION_YML,
+                                        schema = @Schema(implementation = CategoryVO.class)
+                                )
+                            }
                     ),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
@@ -79,17 +105,26 @@ public class CategoryController {
         return categoryService.save(categoryVO);
     }
 
-    // UPDATE - HTTP PUT
-    // Endpoint: http://localhost:8080/api/v1/user
     @PutMapping(produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML },
             consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
     @Operation(
-            summary = "Update a user.", description = "Update a user.", tags = {"User"},
+            summary = "Update a category.", description = "Update a category.", tags = {"Category"},
             responses = {
-                    @ApiResponse(description = "Success", responseCode = "200",
-                            content = @Content(
-                                    schema = @Schema(implementation = CategoryVO.class)
-                            )
+                   @ApiResponse(description = "Success", responseCode = "200",
+                            content = {
+                                @Content(
+                                        mediaType = MediaType.APPLICATION_JSON,
+                                        schema = @Schema(implementation = CategoryVO.class)
+                                ),
+                                @Content(
+                                        mediaType = MediaType.APPLICATION_XML,
+                                        schema = @Schema(implementation = CategoryVO.class)
+                                ),
+                                @Content(
+                                        mediaType = MediaType.APPLICATION_YML,
+                                        schema = @Schema(implementation = CategoryVO.class)
+                                )
+                            }
                     ),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
@@ -101,11 +136,10 @@ public class CategoryController {
         return categoryService.update(categoryVO);
     }
 
-    // DELETE - HTTP DELETE
-    // Endpoint: http://localhost:8080/api/v1/user/ID
+
     @DeleteMapping("/{id}")
     @Operation(
-            summary = "Deletes a User by ID.", description = "Deletes a User by ID.", tags = {"User"},
+            summary = "Deletes a Category by ID.", description = "Deletes a Category by ID.", tags = {"Category"},
             responses = {
                     @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),

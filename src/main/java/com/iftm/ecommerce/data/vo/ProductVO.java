@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.hateoas.RepresentationModel;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.iftm.ecommerce.models.Category;
 import com.iftm.ecommerce.models.Image;
 import com.iftm.ecommerce.models.Order;
@@ -22,6 +23,7 @@ public class ProductVO extends RepresentationModel<ProductVO> implements Seriali
 
     private Category category;
     
+    @JsonIgnore
     private List<Order> orders;
 
     public ProductVO(String description, int amount, double value, Image image, Category category,

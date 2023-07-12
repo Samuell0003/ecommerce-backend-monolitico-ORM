@@ -48,7 +48,6 @@
             <version>3.0.4</version>
         </dependency>
 
-
         <dependency>
             <groupId>com.github.dozermapper</groupId>
             <artifactId>dozer-core</artifactId>
@@ -75,7 +74,6 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -94,6 +92,7 @@
             <version>3.1.0</version>
             <scope>test</scope>
         </dependency>
+        
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>javax.persistence</artifactId>
@@ -105,14 +104,6 @@
             <artifactId>hibernate-core</artifactId>
             <version>6.1.5.Final</version>
         </dependency>
-
-        <!-- <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.13.0</version>
-        </dependency> -->
-
-
     </dependencies>
 
     <build>

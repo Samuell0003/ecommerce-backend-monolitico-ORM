@@ -1,8 +1,6 @@
 package com.iftm.ecommerce.data.vo;
 
-import com.iftm.ecommerce.models.Category;
 import com.iftm.ecommerce.models.Product;
-import jakarta.persistence.*;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
@@ -18,13 +16,12 @@ public class CategoryVO extends RepresentationModel<CategoryVO> implements Seria
 
     private List<Product> products;
 
-    public CategoryVO() {
-    }
+    public CategoryVO() { }
 
-    public CategoryVO(Long idCategory, String nameCategory, String description) {
-        this.idCategory = idCategory;
+    public CategoryVO(String nameCategory, String description, List<Product> products) {
         this.nameCategory = nameCategory;
         this.description = description;
+        this.products = products;
     }
 
     @Override
@@ -63,4 +60,13 @@ public class CategoryVO extends RepresentationModel<CategoryVO> implements Seria
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
 }

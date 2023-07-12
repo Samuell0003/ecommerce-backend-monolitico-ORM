@@ -1,8 +1,10 @@
 package com.iftm.ecommerce.repositories;
 
-import com.iftm.ecommerce.models.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import com.iftm.ecommerce.models.Order;
 @Repository
-public interface CategoryRepository extends JpaRepository<Category, Long> {
+public interface OrderRepository extends JpaRepository<Order, Long> {
+    
 }
