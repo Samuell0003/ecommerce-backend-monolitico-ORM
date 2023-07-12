@@ -43,6 +43,24 @@ The Product Controller is responsible for handling HTTP requests related to mana
   - application/xml: XML representation of the product.
   - application/yml: YAML representation of the product.
 
+### Find a product by NAME
+
+- **URL:** `/api/v1/product?name=...`
+- **Method:** GET
+- **Description:** Retrieves a product by its NAME.
+- **Parameters:**
+  - name (path): NAME of the product to retrieve.
+- **Responses:**
+  - 200 OK: Successfully retrieved the product.
+  - 400 Bad Request: The request is malformed or invalid.
+  - 401 Unauthorized: Authentication is required to access the resource.
+  - 404 Not Found: The requested resource was not found.
+  - 500 Internal Server Error: An unexpected error occurred.
+- **Response Content Types:**
+  - application/json: JSON representation of the product.
+  - application/xml: XML representation of the product.
+  - application/yml: YAML representation of the product.
+
 ### Find all products
 
 - **URL:** `/api/v1/product`
