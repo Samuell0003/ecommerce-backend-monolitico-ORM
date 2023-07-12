@@ -30,7 +30,7 @@ public class Product {
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
     
-    @ManyToMany(mappedBy = "products", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Order> orders;
 

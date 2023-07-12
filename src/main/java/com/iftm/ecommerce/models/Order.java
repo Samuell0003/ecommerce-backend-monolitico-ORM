@@ -5,46 +5,52 @@ import java.util.List;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 @Entity
 @Table(name = "tb_order")
 public class Order {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idOrder;
     @Column
     private String description;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "product_order",
         joinColumns = @JoinColumn(name = "product_id"),
         inverseJoinColumns = @JoinColumn(name = "order_id")
     )
+    @NotNull
+    @NotEmpty
     private List<Product> products;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    // @Temporal(TemporalType.TIMESTAMP)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     @Column
     private LocalDateTime dateOrder;
     @Column
     private Double fullValue = 0D;
 
 
-    public Order (String description, List<Product> products, LocalDateTime dateOrder) {
+    public Order(String description, List<Product> products, LocalDateTime dateOrder, Double fullValue) {
         this.description = description;
         this.products = products;
         this.dateOrder = dateOrder;
+        this.fullValue = fullValue;
     }
 
     public Order() {}
 
-    @PreUpdate
-    public void fullValueget() {
-        for (Product product: products) {
-            this.fullValue += product.getValue();
-        }
-    }
 
     public String getDescription() {
         return description;
@@ -67,14 +73,6 @@ public class Order {
         return Objects.hash(idOrder, products, dateOrder);
     }
 
-    public Double getfullValue() {
-        for (Product product: products) {
-            this.fullValue += product.getValue();
-        }
-
-        return fullValue;
-    }
-
     public Long getIdOrder() {
         return idOrder;
     }
@@ -86,7 +84,6 @@ public class Order {
     public List<Product> getProducts() {
         return products;
     }
-
     public void setProducts(List<Product> products) {
         this.products = products;
     }
@@ -94,7 +91,11 @@ public class Order {
     public LocalDateTime getDateOrder() {
         return dateOrder;
     }
-
+    @JsonIgnore
+    public void setFullValue(Double fullValue) {
+       this.fullValue = fullValue;
+    }
+    @JsonIgnore
     public void setDateOrder(LocalDateTime dateOrder) {
         this.dateOrder = dateOrder;
     }
@@ -102,6 +103,5 @@ public class Order {
     public Double getFullValue() {
         return fullValue;
     }
-
-   
+  
 }

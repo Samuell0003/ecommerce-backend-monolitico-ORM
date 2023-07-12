@@ -1,6 +1,5 @@
 package com.iftm.ecommerce.data.vo;
 
-import org.springframework.hateoas.Link;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
@@ -18,8 +17,6 @@ public class ImageVO extends RepresentationModel<ImageVO> implements Serializabl
 
     public ImageVO() {
     }
-
-    
 
     public String getDescription() {
         return description;
@@ -67,6 +64,4 @@ public class ImageVO extends RepresentationModel<ImageVO> implements Serializabl
         this.idImage = idImage;
     }
 
-//    public void add(Link withSelfRel) {
-//    }
 }

@@ -4,11 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iftm.ecommerce.controllers.OrderController;
+import com.iftm.ecommerce.controllers.ProductController;
 import com.iftm.ecommerce.data.vo.OrderVO;
 import com.iftm.ecommerce.exceptions.RequeridObjectIsNullException;
 import com.iftm.ecommerce.exceptions.ResourceNotFoundException;
 import com.iftm.ecommerce.mapper.DozerMapper;
 import com.iftm.ecommerce.models.Order;
+import com.iftm.ecommerce.models.Product;
 import com.iftm.ecommerce.repositories.OrderRepository;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -22,16 +24,23 @@ public class OrderServices {
     @Autowired
     private OrderRepository repository;
 
+    @Autowired
+    ProductService productService;
+
     public OrderVO save(OrderVO orderVO) throws Exception {
         if (orderVO == null) new RequeridObjectIsNullException();
-
+        Double fullValue = 0D;
+        for (Product product : orderVO.getProducts()) {
+            var prod = productService.findById(product.getIdProduct());
+            fullValue += prod.getValue();
+        }
+        orderVO.setFullValue(fullValue);
         var order = DozerMapper.parseObject(orderVO, Order.class);
         var orderdb = repository.save(order);
         orderVO = DozerMapper.parseObject(orderdb, OrderVO.class);
         orderVO.add(linkTo(methodOn(OrderController.class).findByid(orderdb.getIdOrder())).withSelfRel());
 
         return orderVO;
-
     }
 
     public List<OrderVO> findAll() {
@@ -60,5 +69,22 @@ public class OrderServices {
     public void deleteById(Long id) throws Exception {
         repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID."));
         repository.deleteById(id);
+    }
+
+    public OrderVO update(OrderVO orderVO) throws Exception {
+        if (orderVO == null) throw new RequeridObjectIsNullException();
+
+        repository.findById(orderVO.getIdOrder()).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID."));
+       
+        Order order = DozerMapper.parseObject(orderVO, Order.class);
+        var orderDb = repository.save(order);
+        orderVO = DozerMapper.parseObject(orderDb, OrderVO.class);
+        orderVO.add(linkTo(methodOn(ProductController.class).findById(orderVO.getIdOrder())).withSelfRel());
+
+        return orderVO;
+    }
+
+    public void deleteAll() {
+        repository.deleteAll();
     }
 }

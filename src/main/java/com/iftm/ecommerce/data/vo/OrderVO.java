@@ -2,25 +2,24 @@ package com.iftm.ecommerce.data.vo;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.hateoas.RepresentationModel;
 
 import com.iftm.ecommerce.models.Product;
 
-import jakarta.persistence.PrePersist;
 
 public class OrderVO extends RepresentationModel<OrderVO> implements Serializable {
 
     private Long idOrder;
     private String description;
     private List<Product> products;
-    private LocalDateTime dateOrder;
+    private LocalDateTime dateOrder =  LocalDateTime.now();
     private Double fullValue = 0D;
     
 
-    public OrderVO (String description, List<Product> products, LocalDateTime dateOrder) {
+
+    public OrderVO(String description, List<Product> products, LocalDateTime dateOrder) {
         this.description = description;
         this.products = products;
         this.dateOrder = dateOrder;
@@ -64,5 +63,8 @@ public class OrderVO extends RepresentationModel<OrderVO> implements Serializabl
         return fullValue;
     }
 
-   
+    public void setFullValue(Double fullValue) {
+        this.fullValue = fullValue;
+    }
+
 }
